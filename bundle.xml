@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <bean id="gtfs-bundles" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundles">
+        <property name="bundles">
+            <list>
+                <!-- <ref bean="gtfs_ASC" /> -->
+                <ref bean="MARTA_GTFS" />
+                <ref bean="GT_GTFS" />
+                <ref bean="CCT_GTFS" />
+                <!-- <ref bean="gtfs_Eureka" /> -->
+
+                <ref bean="GCT_GTFS" />
+                <!-- <ref bean="gtfs_CATS" /> -->
+                <ref bean="GRTA_GTFS" />
+
+                <!-- References to other GTFS feeds could go here -->
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- Old MARTA GTFS location -->
+    <!-- <property name="path" value="/Users/landon/Dropbox/data/marta/google_transit.zip" /> -->
+
+    <!-- <bean id="gtfs_Eureka" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/landon/Downloads/humboldtcounty-ca-us.zip" /> -->
+        <!-- <property name="defaultAgencyId" value="Eureka" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="Eureka" value="Eureka" />
+            </map>
+        </property> -->
+    <!-- </bean> -->
+
+    <bean id="gtfs_MARTA" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/Lcaceda/Documents/OBA/bundle_102016/MARTA_GTFS.zip" />
+        <property name="defaultAgencyId" value="MARTA" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="MARTA" value="MARTA" />
+            </map>
+        </property>
+    </bean>
+
+  <bean id="gtfs_GT" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/Lcaceda/Documents/OBA/bundle_102016/GT_GTFS.zip" />
+        <property name="defaultAgencyId" value="GATECH" />
+        <property name="agencyIdMappings">
+            <map>
+
+                <entry key="GATECH" value="GATECH" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- Old CCT GTFS location -->
+    <!-- <property name="path" value="/Users/landon/Dropbox/data/cct/gtfs_cct.zip" /> -->
+
+  <bean id="gtfs_CCT" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/Lcaceda/Documents/OBA/bundle_102016/CCT_GTFS.zip" />
+        <property name="defaultAgencyId" value="CCT" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="CCT" value="CCT" />
+            </map>
+        </property>
+    </bean>
+    <!-- <bean id="gtfs_ASC" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/var/otp/graphs/streetcar.zip" />
+        <property name="defaultAgencyId" value="ASC" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="ASC" value="ASC" />
+            </map>
+        </property>
+    </bean> -->
+
+    <bean id="gtfs_GCT" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/Lcaceda/Documents/OBA/bundle_102016/GCT_GTFS.zip" />
+        <property name="defaultAgencyId" value="GCT" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="GCT" value="GCT" />
+            </map>
+        </property>
+    </bean>
+
+    <!-- <bean id="gtfs_CATS" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/var/otp/graphs/cats.zip.hold" />
+        <property name="defaultAgencyId" value="CATS" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="CATS" value="CATS" />
+            </map>
+        </property>
+    </bean> -->
+    <bean id="gtfs_GRTA" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/Lcaceda/Documents/OBA/bundle_102016/GRTA_GTFS.zip" />
+        <property name="defaultAgencyId" value="GRTA" />
+        <property name="agencyIdMappings">
+            <map>
+                <entry key="GRTA" value="GRTA" />
+            </map>
+        </property>
+    </bean>
+<!--
+    <bean id="gtfs_REGION" class="org.onebusaway.transit_data_federation.bundle.model.GtfsBundle">
+        <property name="path" value="/Users/landon/Dropbox/data/region/gtfs.zip" />
+        <property name="defaultAgencyId" value="1" />
+        <property name="agencyIdMappings">
+            <map>
+
+                <entry key="ASFS" value="ASFS" />
+                <entry key="BUC" value="BUC" />
+                <entry key="CATS" value="CATS" />
+                <entry key="EMORY" value="EMORY" />
+                <entry key="GATECH" value="GATECH" />
+                <entry key="GRTA" value="GRTA" />
+                <entry key="BUC" value="BUC" />
+            </map>
+        </property>
+    </bean>
+-->
+    <!-- Need a mechanism to combine stops from different feeds? -->
+
+    <bean id="entityReplacementStrategyFactory" class="org.onebusaway.transit_data_federation.bundle.tasks.EntityReplacementStrategyFactory">
+        <property name="entityMappings">
+            <map>
+                <entry key="org.onebusaway.gtfs.model.Stop" value="/Users/Lcaceda/Documents/OBA/bundle_102016/stop_map.txt" />
+            </map>
+        </property>
+    </bean>
+    <bean id="entityReplacementStrategy" factory-bean="entityReplacementStrategyFactory" factory-method="create"/>
+
+</beans>
