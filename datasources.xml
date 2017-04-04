@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- Specify our transit data source -->
+    <bean id="transitDataService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://localhost/onebusaway-transit-data-federation-webapp/remoting/transit-data-service" />
+        <property name="serviceInterface" value="org.onebusaway.transit_data.services.TransitDataService" />
+    </bean>
+
+    <!-- Database Connection Configuration -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/org_onebusaway_database" />
+        <property name="username" value="oba" />
+        <property name="password" value="seb319obaATL" />
+    </bean>
+
+    <bean id="externalGeocoderImpl" class="org.onebusaway.geocoder.impl.FixedGeocoderImpl">
+        <property name="lat" value="33.749" />
+        <property name="lon" value="-84.388010" />
+        <property name="city" value="Atlanta" />
+        <property name="state" value="GA" />
+        <property name="postalCode" value="30303" />
+    </bean>
+
+    <bean id="apiKeyValidationService" class="org.onebusaway.users.impl.validation.KeyValidationServiceImpl"/>
+
+    <!-- Allows the TEST key for OBA API testing.  Should be removed in production -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="TEST"/>
+    </bean>
+
+    <!-- Rando key -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="4105d824-8da8-4705-9713-38c34aee5ca7" />
+    </bean>
+
+
+
+    <!-- Alexa Amazon app for Sean Barbeau -->
+
+
+    <!--
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+      <property name="key" value="v1_C5+aiesgg8DxpmG1yS2F/pj2zHk=c3BoZW5yeUBnbWFpbC5jb20=" />
+    </bean>
+    -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="v1_C5+aiesgg8DxpmG1yS2F/pj2zHk=c3BoZW5yeUBnbWFpbC5jb20==" />
+    </bean>
+
+    <!-- Tells ehCache to use a different name for the cache (to avoid conflicting with other onebusaway webapps)  -->
+    <bean class="org.onebusaway.container.spring.PropertyOverrideConfigurer">
+      <property name="properties">
+        <props>
+          <prop key="cacheManager.cacheManagerName">org.onebusaway.api_webapp.cacheManager</prop>
+        </props>
+      </property>
+    </bean>
+</beans>
