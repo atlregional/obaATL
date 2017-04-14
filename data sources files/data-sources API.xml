@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- Specify our transit data source -->
+    <bean id="transitDataService" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://localhost/onebusaway-transit-data-federation-webapp/remoting/transit-data-service" />
+        <property name="serviceInterface" value="org.onebusaway.transit_data.services.TransitDataService" />
+    </bean>
+
+    <!-- Database Connection Configuration -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/org_onebusaway_database" />
+        <property name="username" value="oba" />
+        <property name="password" value="seb319obaATL" />
+    </bean>
+
+    <bean id="externalGeocoderImpl" class="org.onebusaway.geocoder.impl.FixedGeocoderImpl">
+        <property name="lat" value="33.749" />
+        <property name="lon" value="-84.388010" />
+        <property name="city" value="Atlanta" />
+        <property name="state" value="GA" />
+        <property name="postalCode" value="30303" />
+    </bean>
+
+    <bean id="apiKeyValidationService" class="org.onebusaway.users.impl.validation.KeyValidationServiceImpl"/>
+
+    <!-- Allows the TEST key for OBA API testing.  Should be removed in production -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="TEST"/>
+    </bean>
+    <!-- TransitScreen -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="acbc4030-c89f-4072-9b22-03cfae9dbbea"/>
+    </bean>
+    <!-- SmartRide -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="ddc80b32-826c-4a0e-a404-2d91445e9057"/>
+    </bean>
+    <!-- Orologics -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="5370bb32-2655-4243-97dc-5742656d3dba"/>
+    </bean>
+    <!-- RideSchedules -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="53a58983-1db1-49fb-8762-c2d774a3c02b"/>
+    </bean>
+    <!-- KJ (Kari's student at GT) -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="453fec13-18c2-4498-b11d-f263ff037607"/>
+    </bean>
+    <!-- Rick Bruce - ITO World -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="2889eac1-12bd-4c6a-8fb6-b3fcf0c4f4e9" />
+    </bean>
+    <!-- Data Science for Good LeDantec / Sam Plank -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="921291bf-f9a9-421e-a26c-8e865d015202" />
+    </bean>
+    <!-- Rando key #1: Kevin Woley -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="b517f08f-f4cd-4c2b-9171-04117ab355a5" />
+    </bean>
+    <!-- Rando key #2 -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="e817a65a-9734-45c6-bf1f-5ac4e1683e8a" />
+    </bean>
+    <!-- Rando key #3 -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="2e76112e-e8f6-4cf5-8060-dd9a0985b826" />
+    </bean>
+    <!-- Rando key #4 -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="3c32f35b-1b69-4e54-b6c7-65923585a114" />
+    </bean>
+    <!-- Rando key #5 -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="cbf9ae1e-c185-4cb8-b055-d5c6a070a9d7" />
+    </bean>
+    <!-- Rando key #6 -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="4105d824-8da8-4705-9713-38c34aee5ca7" />
+    </bean>
+
+
+
+
+
+
+    <!-- Alexa Amazon app for Sean Barbeau -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="e5c0e97a-729d-4fdb-a3ca-2fccb20ac3ab"/>
+    </bean>
+    <!-- iPhone -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="org.onebusaway.iphone" />
+    </bean>
+    <!-- Android? -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="v1_BktoDJ2gJlu6nLM6LsT9H8IUbWc=cGF1bGN3YXR0c0BnbWFpbC5jb20=" />
+    </bean>
+
+    <!--
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+      <property name="key" value="v1_C5+aiesgg8DxpmG1yS2F/pj2zHk=c3BoZW5yeUBnbWFpbC5jb20=" />
+    </bean>
+    -->
+    <bean class="org.onebusaway.users.impl.CreateApiKeyAction">
+        <property name="key" value="v1_C5+aiesgg8DxpmG1yS2F/pj2zHk=c3BoZW5yeUBnbWFpbC5jb20==" />
+    </bean>
+
+    <!-- Tells ehCache to use a different name for the cache (to avoid conflicting with other onebusaway webapps)  -->
+    <bean class="org.onebusaway.container.spring.PropertyOverrideConfigurer">
+      <property name="properties">
+        <props>
+          <prop key="cacheManager.cacheManagerName">org.onebusaway.api_webapp.cacheManager</prop>
+        </props>
+      </property>
+    </bean>
+</beans>
